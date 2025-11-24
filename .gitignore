@@ -205,3 +205,33 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# Model files
+*.h5
+*.keras
+saved_model/
+checkpoint/
+checkpoints/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Datasets
+data/
+datasets/
+*.zip
+*.csv
+
+# OS files
+.DS_Store
+
+# TensorFlow cache
+logs/
