@@ -11,7 +11,6 @@ Supports **13 languages**, including **12 major Indian languages**, enabling far
 - [Tech Stack](#-tech-stack)
 - [Installation](#-installation)
 - [Usage](#-usage)
-- [API Documentation](#-api-documentation)
 - [Supported Diseases](#-supported-diseases)
 - [Supported Languages](#-supported-languages)
 - [Model Performance](#-model-performance)
@@ -82,9 +81,6 @@ Supports **13 languages**, including **12 major Indian languages**, enabling far
 
 ---
 
-
----
-
 # Installation
 
 ## **Prerequisites**
@@ -107,13 +103,14 @@ pip install -r requirements.txt
 ```
 
 ## **requirements.txt**
+``` bash
 flask==2.3.0
 flask-cors==4.0.0
 tensorflow==2.13.0
 numpy==1.24.3
 pillow==10.0.0
 deep-translator==1.11.4
-
+```
 ---
 
 ## **Step 3 — Add Model File**
@@ -127,7 +124,6 @@ in the project root directory.
 ## **Step 4 — Run Backend Server**
 python app.py
 
-
 Server runs at:
 
 http://localhost:5000
@@ -135,13 +131,12 @@ http://localhost:5000
 ## **Step 5 — Run Frontend**
 python -m http.server 8000
 
-
 Open:
 
 http://localhost:8000
 
-Usage
-Image-based Detection
+# Usage
+## **Image-based Detection**
 
 Open Image Upload tab
 
@@ -151,7 +146,7 @@ Click Analyze Image
 
 View predicted disease & confidence score
 
-Text-based Diagnosis
+## **Text-based Diagnosis**
 
 Open Describe Symptoms tab
 
@@ -161,7 +156,7 @@ Click Diagnose Disease
 
 Receive diagnosis in the same language
 
-Example Inputs:
+## **Example Inputs:**
 
 English: brown circular spots on leaf
 
