@@ -200,9 +200,13 @@ CNN Image-Based	92–95%
 # Future Enhancements
 
 Support for 20+ plant species
+
 ONNX model for mobile apps
+
 Voice-based symptom input
+
 Offline mode
+
 In-app farmer advisory system
 
 # License:
