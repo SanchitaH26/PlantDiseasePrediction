@@ -100,14 +100,13 @@ Supports **13 languages**, including **12 major Indian languages**, enabling far
 ```bash
 git clone https://github.com/yourusername/plant-disease-detection.git
 cd plant-disease-detection
-
-Step 2 — Install Dependencies
+```
+## **Step 2 — Install Dependencies**
 ```bash
 pip install -r requirements.txt
+```
 
----
-
-# requirements.txt
+## **requirements.txt**
 flask==2.3.0
 flask-cors==4.0.0
 tensorflow==2.13.0
@@ -117,15 +116,15 @@ deep-translator==1.11.4
 
 ---
 
-# Step 3 — Add Model File
+## **Step 3 — Add Model File**
 
-Place your trained model file:
+**Place your trained model file:**
 
 plant_disease_model.h5
 
 in the project root directory.
 
-Step 4 — Run Backend Server
+## **Step 4 — Run Backend Server**
 python app.py
 
 
@@ -133,7 +132,7 @@ Server runs at:
 
 http://localhost:5000
 
-Step 5 — Run Frontend
+## **Step 5 — Run Frontend**
 python -m http.server 8000
 
 
@@ -179,7 +178,7 @@ Tomato Early Blight,Tomato Late Blight,Tomato Leaf Mold,Tomato Mosaic Virus,Toma
 
 Kannada,English,Hindi,Tamil,Telugu,Malayalam,Marathi,Gujarati,Bengali,Punjabi,Odia,Urdu,Assamese
 
-Model Performance
+# Model Performance
 Detection Mode	Accuracy
 CNN Image-Based	92–95%
 
