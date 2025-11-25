@@ -177,19 +177,25 @@ Kannada,English,Hindi,Tamil,Telugu,Malayalam,Marathi,Gujarati,Bengali,Punjabi,Od
 Detection Mode	Accuracy
 CNN Image-Based	92–95%
 
-Screenshots
-Home Interface
+# Screenshots
+## **Home Interface**
 
-<img width="1629" height="812" alt="image" src="https://github.com/user-attachments/assets/0ea8a854-5a69-45ad-b605-84d7fa44995f" />
+<img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/0ea8a854-5a69-45ad-b605-84d7fa44995f" />
 
 
-Image-Based Detection
+## **Image-Based Detection**
 
-(Add screenshot)
+<img width="618" height="668" alt="image" src="https://github.com/user-attachments/assets/e40fdd4b-e28b-4d5f-842e-e85b7c1cef51" />
 
-Text-Based Diagnosis
 
-(Add multilingual output screenshot)
+## **Text-Based Diagnosis**
+
+<img width="618" height="668" alt="image" src="https://github.com/user-attachments/assets/dca6b246-e052-450b-a3c0-a8b3c674d3b0" />
+
+## **Multilingual text based analysis**
+
+<img width="584" height="668" alt="image" src="https://github.com/user-attachments/assets/c0770e29-19a7-4452-8038-b92dbc77a042" />
+
 
 # Future Enhancements
 
