@@ -180,7 +180,8 @@ CNN Image-Based	92–95%
 Screenshots
 Home Interface
 
-(Add screenshot)
+<img width="1629" height="812" alt="image" src="https://github.com/user-attachments/assets/0ea8a854-5a69-45ad-b605-84d7fa44995f" />
+
 
 Image-Based Detection
 
