@@ -1,6 +1,7 @@
 # Plant Disease Detection System
 
-An AI-powered multilingual platform for early plant disease detection using **deep learning** and **natural language processing**.  
+An AI-powered, role-based multilingual platform for early plant disease detection using **deep learning**, **natural language processing**, and **voice recognition**.  
+The system supports farmers through image, text, and voice-based diagnosis, while providing administrators with full control over disease data via a secure dashboard. 
 Supports **13 languages**, including **12 major Indian languages**, enabling farmers to diagnose plant diseases through **image uploads** or **symptom descriptions** in their native language.
 
 ---
@@ -33,6 +34,12 @@ Supports **13 languages**, including **12 major Indian languages**, enabling far
 - Describe symptoms in any supported language  
 - NLP-based disease diagnosis (**75–82% accuracy**)
 
+### **Voice-based Symptom Input**
+- English voice input using **Google Speech Recognition API**
+- Converts spoken symptoms into text in real time
+- Seamlessly integrates with existing NLP diagnosis pipeline
+- Enables hands-free interaction for farmers
+
 ---
 
 ## Multilingual Support
@@ -53,6 +60,34 @@ Supports **13 languages**, including **12 major Indian languages**, enabling far
 
 ---
 
+## Secure Authentication & Role-Based Access
+
+The system includes a secure login mechanism with **role-based access control** to ensure appropriate functionality for different users.
+
+### **Farmer Login**
+- Access to:
+  - Image-based disease detection
+  - Text-based symptom diagnosis
+  - Voice-based symptom input (English)
+- Receives disease diagnosis, causes, and treatment recommendations
+- Simple, chatbot-style interface for ease of use
+
+### **Admin Login**
+- Access to an **Admin Dashboard**
+- Can manage plant disease data stored in the database:
+  - View all diseases from the PlantVillage dataset
+  - Add new diseases
+  - Edit existing disease details
+  - Delete obsolete or incorrect disease records
+- All changes are **persisted securely in the database**
+
+### **Security**
+- User credentials are securely stored using **SHA-256 (SHA-2) hashing**
+- Plain-text passwords are never stored
+- Role validation is enforced during login
+
+---
+
 # Tech Stack
 
 ## Backend
@@ -60,12 +95,18 @@ Supports **13 languages**, including **12 major Indian languages**, enabling far
 - TensorFlow 2.x, Keras
 - Deep Translator  
 - Pillow, NumPy  
-- Flask-CORS  
+- Flask-CORS
+- MongoDB (User authentication & disease data storage)
+- Secure password hashing (SHA-2 / SHA-256)
+
 
 ## Frontend
 - HTML5  
 - CSS3  
-- JavaScript  
+- JavaScript
+- Google Speech Recognition API for voice input
+- Role-based UI rendering (Farmer / Admin)
+ 
 
 ## Machine Learning
 - Custom CNN model  
@@ -177,37 +218,62 @@ Kannada,English,Hindi,Tamil,Telugu,Malayalam,Marathi,Gujarati,Bengali,Punjabi,Od
 Detection Mode	Accuracy
 CNN Image-Based	92–95%
 
+# Admin Dashboard
+
+The Admin Dashboard provides complete control over disease data used by the system.
+
+### **Admin Capabilities**
+- View all plant diseases stored in the database
+- Add new disease entries with symptoms and treatment details
+- Update existing disease information
+- Delete diseases when required
+
+### **Real-Time Updates**
+- Any changes made by the admin are immediately reflected in:
+  - Farmer chatbot responses
+  - Text-based and voice-based diagnosis
+
 # Screenshots
-## **Home Interface**
+## **Login Page**
 
-<img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/0ea8a854-5a69-45ad-b605-84d7fa44995f" />
+<img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/c69abc97-b28d-4b6a-9d7c-f77392a4b4a2" />
 
+## **Farmer Dashboard (Chatbot & Detection)**
+
+<img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/c9d7fa43-e768-4cca-9ae6-51c8660734a1" />
+
+## **Admin Dashboard**
+
+<img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/af5f624e-e91f-48bc-b1d2-1cbe1246ea22" />
+
+## **Disease management by Admin**
+
+<img width="1874" height="803" alt="image" src="https://github.com/user-attachments/assets/6a779eae-608c-4659-8ace-26961634f1d2" />
 
 ## **Image-Based Detection**
 
-<img width="618" height="668" alt="image" src="https://github.com/user-attachments/assets/e40fdd4b-e28b-4d5f-842e-e85b7c1cef51" />
-
+<img width="751" height="657" alt="image" src="https://github.com/user-attachments/assets/35ca1c5e-1856-4a7d-a656-ebe16f729ab1" />
 
 ## **Text-Based Diagnosis**
 
-<img width="618" height="668" alt="image" src="https://github.com/user-attachments/assets/dca6b246-e052-450b-a3c0-a8b3c674d3b0" />
+<img width="702" height="561" alt="image" src="https://github.com/user-attachments/assets/481ed867-d069-4a19-b3c1-a3f49e5dee5d" />
 
 ## **Multilingual text based analysis**
 
-<img width="584" height="668" alt="image" src="https://github.com/user-attachments/assets/c0770e29-19a7-4452-8038-b92dbc77a042" />
+<img width="777" height="582" alt="image" src="https://github.com/user-attachments/assets/deee30ff-6dbd-4e60-beb4-62cdd310e950" />
 
+## **Voice based (which is then converted into text) analysis**
+
+<img width="720" height="536" alt="image" src="https://github.com/user-attachments/assets/906f1669-7c7e-4703-bf03-4d20aa3e29a6" />
 
 # Future Enhancements
 
-Support for 20+ plant species
+- Multilingual voice input (Indian languages)
+- Mobile application support
+- Offline diagnosis mode
+- Crop-specific advisory recommendations
+- Integration with government agricultural databases
 
-ONNX model for mobile apps
-
-Voice-based symptom input
-
-Offline mode
-
-In-app farmer advisory system
 
 # License:
 
