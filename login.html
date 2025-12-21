@@ -25,30 +25,45 @@ body {
     box-shadow: 0 20px 60px rgba(0,0,0,0.3);
 }
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 label {
     font-weight: 600;
     color: #11998e;
+    font-size: 15px;
+    display: block;
+    margin-bottom: 8px;
 }
 input, select {
     width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+    padding: 100px 16px;
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+input:focus, select:focus {
+    outline: none;
+    border-color: #11998e;
+    box-shadow: 0 0 0 3px rgba(17, 153, 142, 0.1);
 }
 button {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     background: #11998e;
     color: white;
     font-weight: 700;
     border-radius: 10px;
     margin-top: 15px;
     cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    border: none;
 }
 button:hover {
     background: #0f766e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(17, 153, 142, 0.4);
 }
 .hidden {
     display: none;
