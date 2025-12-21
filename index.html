@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Chatbot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .chat-container {
+            max-width: 900px;
+            width: 100%;
+            height: 90vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .chat-header {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .bot-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        .header-text h1 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        .header-text p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f5f7fa;
+        }
+        .message {
+            display: flex;
+            margin-bottom: 20px;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .message.bot {
+            justify-content: flex-start;
+        }
+        .message.user {
+            justify-content: flex-end;
+        }
+        .message-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .message.bot .message-avatar {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            margin-right: 10px;
+        }
+        .message.user .message-avatar {
+            background: #e0e0e0;
+            color: #555;
+            margin-left: 10px;
+        }
+        .message-content {
+            max-width: 70%;
+            padding: 12px 18px;
+            border-radius: 18px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+        .message.bot .message-content {
+            background: white;
+            color: #333;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .message.user .message-content {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        .message-time {
+            font-size: 11px;
+            opacity: 0.6;
+            margin-top: 5px;
+        }
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .quick-btn {
+            padding: 8px 15px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+        .quick-btn:hover {
+            background: #11998e;
+            color: white;
+            border-color: #11998e;
+        }
+        .typing-indicator {
+            display: none;
+            padding: 15px;
+            background: white;
+            border-radius: 18px;
+            width: fit-content;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .typing-indicator.show {
+            display: block;
+        }
+        .typing-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #11998e;
+            margin: 0 3px;
+            animation: typing 1.4s infinite;
+        }
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+        .chat-input-area {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+        }
+        .input-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .input-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background: #f5f7fa;
+            border-radius: 25px;
+            padding: 5px 15px;
+        }
+        #messageInput {
+            flex: 1;
+            border: none;
+            background: none;
+            padding: 10px;
+            font-size: 15px;
+            outline: none;
+            font-family: inherit;
+        }
+        .attach-btn, .send-btn, .voice-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+        .attach-btn {
+            background: #f0f0f0;
+            color: #11998e;
+        }
+        .attach-btn:hover {
+            background: #e0e0e0;
+        }
+        .voice-btn {
+            background: #f0f0f0;
+            color: #11998e;
+        }
+        .voice-btn:hover {
+            background: #e0e0e0;
+        }
+        .voice-btn.recording {
+            background: #e74c3c;
+            color: white;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+        .send-btn {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        .send-btn:hover {
+            transform: scale(1.05);
+        }
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .image-preview-container {
+            display: none;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .image-preview-container.show {
+            display: block;
+        }
+        .image-preview {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 8px;
+        }
+        .remove-image {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .result-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 10px;
+            border-left: 4px solid #11998e;
+        }
+        .result-card h4 {
+            color: #11998e;
+            margin-bottom: 8px;
+        }
+        .result-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+        }
+        .confidence-badge {
+            display: inline-block;
+            background: #11998e;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+        .healthy-badge {
+            background: #27ae60;
+        }
+        .diseased-badge {
+            background: #e74c3c;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .chat-container {
+                height: 100vh;
+                border-radius: 0;
+            }
+            .message-content {
+                max-width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="bot-avatar">🌱</div>
+            <div class="header-text">
+                <h1>Plant Doctor AI</h1>
+                <p>Your multilingual plant health assistant</p>
+            </div>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <!-- Messages will appear here -->
+        </div>
+        
+        <div class="chat-input-area">
+            <div class="image-preview-container" id="imagePreviewContainer">
+                <img id="imagePreview" class="image-preview" alt="Preview">
+                <button class="remove-image" onclick="removeImage()">×</button>
+            </div>
+            
+            <div class="input-container">
+                <button class="attach-btn" onclick="document.getElementById('fileInput').click()" title="Upload plant image">
+                    📎
+                </button>
+                <button class="voice-btn" id="voiceBtn" onclick="toggleVoiceRecording()" title="Voice input">
+                    🎤
+                </button>
+                <div class="input-wrapper">
+                    <input type="text" id="messageInput" placeholder="Type your message or describe symptoms..." 
+                           onkeypress="handleKeyPress(event)">
+                </div>
+                <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+                    ➤
+                </button>
+            </div>
+            <input type="file" id="fileInput" accept="image/*" onchange="handleImageUpload(event)">
+        </div>
+    </div>
+    
+
+    <script>
+        (async () => {
+            const res = await fetch("/check-auth", { credentials: "same-origin" });
+            if (!res.ok) {
+                window.location.href = "/login.html";
+            }
+        })();
+
+        let currentLanguage = 'en';
+        let conversationState = 'greeting';
+        let uploadedImage = null;
+        let awaitingImageAnalysis = false;
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let isRecording = false;
+
+        const greetings = {
+            en: {
+                greeting: "Hello! 👋 I'm your Plant Doctor AI. I can help diagnose plant diseases in 13 languages!",
+                options: "How would you like me to help you today?",
+                buttons: ["Upload plant image 📷", "Describe symptoms 💬", "Ask a question ❓"]
+            },
+            hi: {
+                greeting: "नमस्ते! 👋 मैं आपका प्लांट डॉक्टर AI हूं। मैं 13 भाषाओं में पौधों की बीमारियों का निदान कर सकता हूं!",
+                options: "मैं आपकी कैसे मदद कर सकता हूं?",
+                buttons: ["पौधे की तस्वीर अपलोड करें 📷", "लक्षण बताएं 💬", "सवाल पूछें ❓"]
+            },
+            kn: {
+                greeting: "ನಮಸ್ಕಾರ! 👋 ನಾನು ನಿಮ್ಮ ಪ್ಲಾಂಟ್ ಡಾಕ್ಟರ್ AI. ನಾನು 13 ಭಾಷೆಗಳಲ್ಲಿ ಸಸ್ಯ ರೋಗಗಳನ್ನು ಪತ್ತೆ ಮಾಡಬಲ್ಲೆ!",
+                options: "ನಾನು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಲಿ?",
+                buttons: ["ಸಸಿಯ ಚಿತ್ರ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ 📷", "ರೋಗಲಕ್ಷಣಗಳನ್ನು ವಿವರಿಸಿ 💬", "ಪ್ರಶ್ನೆ ಕೇಳಿ ❓"]
+            },
+            te: {
+                greeting: "నమస్కారం! 👋 నేను మీ ప్లాంట్ డాక్టర్ AI. నేను 13 భాషలలో మొక్కల వ్యాధులను నిర్ధారణ చేయగలను!",
+                options: "నేను మీకు ఎలా సహాయం చేయగలను?",
+                buttons: ["మొక్క చిత్రాన్ని అప్‌లోడ్ చేయండి 📷", "లక్షణాలను వివరించండి 💬", "ప్రశ్న అడగండి ❓"]
+            },
+            ta: {
+                greeting: "வணக்கம்! 👋 நான் உங்கள் Plant Doctor AI. நான் 13 மொழிகளில் தாவர நோய்களை கண்டறிய முடியும்!",
+                options: "நான் உங்களுக்கு எப்படி உதவ முடியும்?",
+                buttons: ["செடியின் படத்தை பதிவேற்றவும் 📷", "அறிகுறிகளை விவரிக்கவும் 💬", "கேள்வி கேளுங்கள் ❓"]
+            }
+        };
+
+        function initChat() {
+            addBotMessage(greetings.en.greeting);
+            setTimeout(() => {
+                addBotMessage(greetings.en.options, greetings.en.buttons);
+            }, 1000);
+        }
+
+        function detectLanguage(text) {
+            const langPatterns = {
+                hi: /[\u0900-\u097F]/,
+                kn: /[\u0C80-\u0CFF]/,
+                te: /[\u0C00-\u0C7F]/,
+                ta: /[\u0B80-\u0BFF]/,
+                ml: /[\u0D00-\u0D7F]/,
+                gu: /[\u0A80-\u0AFF]/,
+                pa: /[\u0A00-\u0A7F]/,
+                bn: /[\u0980-\u09FF]/,
+                or: /[\u0B00-\u0B7F]/
+            };
+            
+            for (let [lang, pattern] of Object.entries(langPatterns)) {
+                if (pattern.test(text)) {
+                    return lang;
+                }
+            }
+            return 'en';
+        }
+
+        function addBotMessage(message, buttons = null) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message bot';
+            
+            let buttonsHTML = '';
+            if (buttons && buttons.length > 0) {
+                buttonsHTML = '<div class="quick-actions">';
+                buttons.forEach(btn => {
+                    buttonsHTML += `<button class="quick-btn" onclick="handleQuickAction('${btn}')">${btn}</button>`;
+                });
+                buttonsHTML += '</div>';
+            }
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar">🌱</div>
+                <div>
+                    <div class="message-content">
+                        ${message}
+                        ${buttonsHTML}
+                    </div>
+                    <div class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                </div>
+            `;
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function addUserMessage(message) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user';
+            
+            messageDiv.innerHTML = `
+                <div>
+                    <div class="message-content">${message}</div>
+                    <div class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                </div>
+                <div class="message-avatar">👤</div>
+            `;
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function showTyping() {
+            const messagesDiv = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = `
+                <div class="message-avatar">🌱</div>
+                <div class="typing-indicator show">
+                    <span class="typing-dot"></span>
+                    <span class="typing-dot"></span>
+                    <span class="typing-dot"></span>
+                </div>
+            `;
+            messagesDiv.appendChild(typingDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function hideTyping() {
+            const typingDiv = document.getElementById('typingIndicator');
+            if (typingDiv) {
+                typingDiv.remove();
+            }
+        }
+
+        function handleQuickAction(action) {
+            addUserMessage(action);
+            showTyping();
+            
+            setTimeout(() => {
+                hideTyping();
+                
+                if (action.includes('📷') || action.includes('Upload') || action.includes('अपलोड') || action.includes('ಅಪ್‌ಲೋಡ್')) {
+                    const responses = {
+                        en: "Perfect! Please upload a clear image of your plant showing the affected areas. I'll analyze it for you! 📸",
+                        hi: "बढ़िया! कृपया अपने पौधे की एक स्पष्ट तस्वीर अपलोड करें जिसमें प्रभावित क्षेत्र दिख रहे हों। मैं इसका विश्लेषण करूंगा! 📸",
+                        kn: "ಅದ್ಭುತ! ದಯವಿಟ್ಟು ಪೀಡಿತ ಪ್ರದೇಶಗಳನ್ನು ತೋರಿಸುವ ನಿಮ್ಮ ಸಸಿಯ ಸ್ಪಷ್ಟ ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ! 📸"
+                    };
+                    addBotMessage(responses[currentLanguage] || responses.en);
+                    awaitingImageAnalysis = true;
+                    document.getElementById('fileInput').click();
+                } else if (action.includes('💬') || action.includes('Describe') || action.includes('बताएं') || action.includes('ವಿವರಿಸಿ')) {
+                    const responses = {
+                        en: "I'm here to help! Please describe what you're seeing on your plant:\n\n• What type of plant? (tomato, potato, pepper)\n• What symptoms? (spots, discoloration, wilting)\n• What colors? (brown, yellow, black)\n• Any patterns? (rings, mold, spreading)",
+                        hi: "मैं मदद के लिए यहां हूं! कृपया बताएं कि आप अपने पौधे पर क्या देख रहे हैं:\n\n• किस प्रकार का पौधा? (टमाटर, आलू, मिर्च)\n• क्या लक्षण? (धब्बे, रंग बदलना, मुरझाना)\n• कौन से रंग? (भूरा, पीला, काला)\n• कोई पैटर्न? (छल्ले, फफूंदी, फैलना)",
+                        kn: "ನಾನು ಸಹಾಯ ಮಾಡಲು ಇಲ್ಲಿದ್ದೇನೆ! ದಯವಿಟ್ಟು ನಿಮ್ಮ ಸಸಿಯಲ್ಲಿ ನೀವು ನೋಡುತ್ತಿರುವುದನ್ನು ವಿವರಿಸಿ:\n\n• ಯಾವ ರೀತಿಯ ಸಸಿ? (ಟೊಮಾಟೊ, ಆಲೂಗಡ್ಡೆ, ಮೆಣಸು)\n• ಯಾವ ರೋಗಲಕ್ಷಣಗಳು? (ಕಲೆಗಳು, ಬಣ್ಣ ಬದಲಾವಣೆ)\n• ಯಾವ ಬಣ್ಣಗಳು? (ಕಂದು, ಹಳದಿ, ಕಪ್ಪು)"
+                    };
+                    addBotMessage(responses[currentLanguage] || responses.en);
+                } else {
+                    const responses = {
+                        en: "Feel free to ask me anything about:\n\n• Plant disease identification\n• Treatment recommendations\n• Prevention tips\n• Supported languages\n• How to use this chatbot",
+                        hi: "मुझसे कुछ भी पूछें:\n\n• पौधों की बीमारी की पहचान\n• उपचार की सिफारिशें\n• रोकथाम के सुझाव\n• समर्थित भाषाएं\n• इस चैटबॉट का उपयोग कैसे करें",
+                        kn: "ನನ್ನನ್ನು ಏನು ಬೇಕಾದರೂ ಕೇಳಿ:\n\n• ಸಸ್ಯ ರೋಗ ಗುರುತಿಸುವಿಕೆ\n• ಚಿಕಿತ್ಸೆ ಶಿಫಾರಸುಗಳು\n• ತಡೆಗಟ್ಟುವಿಕೆ ಸಲಹೆಗಳು\n• ಬೆಂಬಲಿತ ಭಾಷೆಗಳು"
+                    };
+                    addBotMessage(responses[currentLanguage] || responses.en);
+                }
+            }, 1000);
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message && !uploadedImage) return;
+            
+            if (message) {
+                addUserMessage(message);
+                input.value = '';
+                
+                currentLanguage = detectLanguage(message);
+                
+                const lowerMessage = message.toLowerCase();
+                
+                if (lowerMessage.match(/^(hi|hello|hey|namaste|नमस्ते|ನಮಸ್ಕಾರ|வணக்கம்)/i)) {
+                    showTyping();
+                    setTimeout(() => {
+                        hideTyping();
+                        const greeting = greetings[currentLanguage] || greetings.en;
+                        addBotMessage(greeting.greeting);
+                        setTimeout(() => {
+                            addBotMessage(greeting.options, greeting.buttons);
+                        }, 800);
+                    }, 1000);
+                    return;
+                }
+                
+                showTyping();
+                await analyzeSymptoms(message);
+            }
+            
+            if (uploadedImage && awaitingImageAnalysis) {
+                await analyzeUploadedImage();
+            }
+        }
+
+        async function analyzeSymptoms(symptoms) {
+            try {
+                const response = await fetch('http://localhost:5000/predict-text', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ symptoms: symptoms })
+                });
+                
+                hideTyping();
+                
+                if (!response.ok) {
+                    throw new Error('Failed to analyze symptoms');
+                }
+                
+                const data = await response.json();
+                displayDiagnosisResult(data);
+            } catch (error) {
+                hideTyping();
+                addBotMessage('Sorry, I encountered an error analyzing your symptoms. Please try again! 😔');
+            }
+        }
+
+        function displayDiagnosisResult(data) {
+            if (!data.diagnosis) {
+                const responses = {
+                    en: "I couldn't identify the disease from your description. Could you provide more details?\n\n• Mention the plant type (tomato, pepper, potato)\n• Describe the colors (brown, yellow, black)\n• Any patterns? (rings, spots, mold)",
+                    hi: "मैं आपके विवरण से बीमारी की पहचान नहीं कर सका। क्या आप अधिक विवरण दे सकते हैं?\n\n• पौधे का प्रकार बताएं\n• रंगों का वर्णन करें\n• कोई पैटर्न?",
+                    kn: "ನಿಮ್ಮ ವಿವರಣೆಯಿಂದ ನಾನು ರೋಗವನ್ನು ಗುರುತಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ। ದಯವಿಟ್ಟು ಹೆಚ್ಚಿನ ವಿವರಗಳನ್ನು ಒದಗಿಸಬಹುದೇ?"
+                };
+                addBotMessage(responses[currentLanguage] || responses.en);
+                return;
+            }
+            
+            const isHealthy = data.diagnosis.is_healthy;
+            const resultHTML = `
+                <div class="result-card">
+                    <h4>${isHealthy ? '✅ Good News!' : '⚠️ Disease Detected'}</h4>
+                    <p><strong>${data.diagnosis.disease}</strong></p>
+                    <span class="confidence-badge ${isHealthy ? 'healthy-badge' : 'diseased-badge'}">
+                        ${data.diagnosis.plant ? data.diagnosis.plant.toUpperCase() : 'PLANT'}
+                    </span>
+                </div>
+                
+                <div class="result-card">
+                    <h4>${currentLanguage === 'hi' ? 'कारण' : currentLanguage === 'kn' ? 'ಕಾರಣ' : 'Cause'}</h4>
+                    <p>${data.diagnosis.cause}</p>
+                </div>
+                
+                <div class="result-card">
+                    <h4>${currentLanguage === 'hi' ? 'उपचार' : currentLanguage === 'kn' ? 'ಚಿಕಿತ್ಸೆ' : 'Treatment'}</h4>
+                    <p>${data.diagnosis.treatment.replace(/\n/g, '<br>')}</p>
+                </div>
+            `;
+            
+            addBotMessage(resultHTML);
+            
+            const followUp = {
+                en: "Would you like to:\n• Upload an image for confirmation 📷\n• Ask about prevention 🛡️\n• Get more details 📋",
+                hi: "क्या आप चाहेंगे:\n• पुष्टि के लिए एक तस्वीर अपलोड करें 📷\n• रोकथाम के बारे में पूछें 🛡️\n• अधिक जानकारी प्राप्त करें 📋",
+                kn: "ನೀವು ಬಯಸುತ್ತೀರಾ:\n• ದೃಢೀಕರಣಕ್ಕಾಗಿ ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ 📷\n• ತಡೆಗಟ್ಟುವಿಕೆ ಬಗ್ಗೆ ಕೇಳಿ 🛡️"
+            };
+            
+            setTimeout(() => {
+                addBotMessage(followUp[currentLanguage] || followUp.en);
+            }, 1000);
+        }
+
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            if (!file.type.startsWith('image/')) {
+                addBotMessage('Please upload a valid image file (JPG, PNG) 🖼️');
+                return;
+            }
+            
+            if (file.size > 5 * 1024 * 1024) {
+                addBotMessage('Image size should be less than 5MB. Please upload a smaller image! 📏');
+                return;
+            }
+            
+            uploadedImage = file;
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('imagePreview').src = e.target.result;
+                document.getElementById('imagePreviewContainer').classList.add('show');
+            };
+            reader.readAsDataURL(file);
+            
+            const uploadMessages = {
+                en: "Great! I can see your plant image. Click send or describe any additional symptoms you're noticing! 📸",
+                hi: "बढ़िया! मैं आपके पौधे की तस्वीर देख सकता हूं। भेजें पर क्लिक करें या कोई अतिरिक्त लक्षण बताएं! 📸",
+                kn: "ಅದ್ಭುತ! ನಾನು ನಿಮ್ಮ ಸಸಿಯ ಚಿತ್ರವನ್ನು ನೋಡಬಲ್ಲೆ। ಕಳುಹಿಸು ಕ್ಲಿಕ್ ಮಾಡಿ! 📸"
+            };
+            
+            showTyping();
+            setTimeout(() => {
+                hideTyping();
+                addBotMessage(uploadMessages[currentLanguage] || uploadMessages.en);
+                awaitingImageAnalysis = true;
+            }, 1000);
+        }
+
+        function removeImage() {
+            uploadedImage = null;
+            document.getElementById('imagePreviewContainer').classList.remove('show');
+            document.getElementById('fileInput').value = '';
+            awaitingImageAnalysis = false;
+            
+            const removeMessages = {
+                en: "Image removed. You can upload a new one or describe symptoms! 🔄",
+                hi: "तस्वीर हटा दी गई। आप एक नई अपलोड कर सकते हैं या लक्षण बता सकते हैं! 🔄",
+                kn: "ಚಿತ್ರ ತೆಗೆದುಹಾಕಲಾಗಿದೆ। ನೀವು ಹೊಸದನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಬಹುದು! 🔄"
+            };
+            
+            addBotMessage(removeMessages[currentLanguage] || removeMessages.en);
+        }
+
+        async function analyzeUploadedImage() {
+            if (!uploadedImage) return;
+            
+            showTyping();
+            
+            const formData = new FormData();
+            formData.append('image', uploadedImage);
+            
+            try {
+                const response = await fetch('http://localhost:5000/predict-image', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                hideTyping();
+                
+                if (!response.ok) {
+                    throw new Error('Failed to analyze image');
+                }
+                
+                const data = await response.json();
+                displayImageResult(data);
+                
+                uploadedImage = null;
+                document.getElementById('imagePreviewContainer').classList.remove('show');
+                document.getElementById('fileInput').value = '';
+                awaitingImageAnalysis = false;
+                
+            } catch (error) {
+                hideTyping();
+                addBotMessage('Sorry, I encountered an error analyzing the image. Please try again! 😔');
+            }
+        }
+
+        function displayImageResult(data) {
+            const isHealthy = data.status === 'HEALTHY';
+            
+            const resultHTML = `
+                <div class="result-card">
+                    <h4>${isHealthy ? '✅ Great News!' : '⚠️ Disease Detected'}</h4>
+                    <p><strong>${data.disease}</strong></p>
+                    <span class="confidence-badge ${isHealthy ? 'healthy-badge' : 'diseased-badge'}">
+                        Confidence: ${data.confidence.toFixed(1)}%
+                    </span>
+                </div>
+                
+                ${!isHealthy ? `
+                <div class="result-card">
+                    <h4>Top 3 Predictions</h4>
+                    ${data.top_3_predictions.map((pred, idx) => `
+                        <p>${idx + 1}. ${pred[0].replace(/_/g, ' ')} - ${pred[1].toFixed(1)}%</p>
+                    `).join('')}
+                </div>
+                ` : ''}
+                
+                ${isHealthy ? `
+                <div class="result-card">
+                    <h4>Care Tips</h4>
+                    <p>• Water regularly (1-2 inches per week)<br>
+                    • Ensure proper sunlight (6-8 hours daily)<br>
+                    • Monitor for any changes<br>
+                    • Maintain good air circulation</p>
+                </div>
+                ` : `
+                <div class="result-card">
+                    <h4>Next Steps</h4>
+                    <p>For detailed treatment advice, please describe the symptoms you're seeing, and I'll provide specific recommendations! 💊</p>
+                </div>
+                `}
+            `;
+            
+            addBotMessage(resultHTML);
+            
+            const followUp = {
+                en: "Would you like me to:\n• Provide detailed treatment 💊\n• Explain the disease 📚\n• Analyze another plant 🌿",
+                hi: "क्या आप चाहते हैं कि मैं:\n• विस्तृत उपचार प्रदान करूं 💊\n• बीमारी को समझाऊं 📚\n• दूसरे पौधे का विश्लेषण करूं 🌿",
+                kn: "ನಾನು ಏನು ಮಾಡಬೇಕು:\n• ವಿವರವಾದ ಚಿಕಿತ್ಸೆ ನೀಡಿ 💊\n• ರೋಗವನ್ನು ವಿವರಿಸಿ 📚\n• ಇನ್ನೊಂದು ಸಸಿಯನ್ನು ವಿಶ್ಲೇಷಿಸಿ 🌿"
+            };
+            
+            setTimeout(() => {
+                addBotMessage(followUp[currentLanguage] || followUp.en);
+            }, 1000);
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        async function toggleVoiceRecording() {
+            const voiceBtn = document.getElementById('voiceBtn');
+            
+            if (!isRecording) {
+                // Start recording
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ 
+                        audio: {
+                            channelCount: 1,
+                            sampleRate: 16000
+                        }
+                    });
+                    
+                    // Use audio/wav for better compatibility
+                    const options = { mimeType: 'audio/webm' };
+                    mediaRecorder = new MediaRecorder(stream, options);
+                    audioChunks = [];
+                    
+                    mediaRecorder.ondataavailable = (event) => {
+                        if (event.data.size > 0) {
+                            audioChunks.push(event.data);
+                        }
+                    };
+                    
+                    mediaRecorder.onstop = async () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                        console.log('Audio blob size:', audioBlob.size);
+                        await processVoiceInput(audioBlob);
+                        
+                        // Stop all tracks
+                        stream.getTracks().forEach(track => track.stop());
+                    };
+                    
+                    mediaRecorder.start();
+                    isRecording = true;
+                    voiceBtn.classList.add('recording');
+                    voiceBtn.textContent = '⏹️';
+                    
+                    const recordingMessages = {
+                        en: "🎤 Recording... Speak now!",
+                        hi: "🎤 रिकॉर्डिंग... अब बोलें!",
+                        kn: "🎤 ರೆಕಾರ್ಡಿಂಗ್... ಈಗ ಮಾತನಾಡಿ!"
+                    };
+                    
+                    addBotMessage(recordingMessages[currentLanguage] || recordingMessages.en);
+                    
+                } catch (error) {
+                    console.error('Error accessing microphone:', error);
+                    addBotMessage('❌ Could not access microphone. Please check permissions!');
+                }
+            } else {
+                // Stop recording
+                if (mediaRecorder && mediaRecorder.state === 'recording') {
+                    mediaRecorder.stop();
+                    isRecording = false;
+                    voiceBtn.classList.remove('recording');
+                    voiceBtn.textContent = '🎤';
+                    
+                    const processingMessages = {
+                        en: "🔄 Processing your voice...",
+                        hi: "🔄 आपकी आवाज़ संसाधित की जा रही है...",
+                        kn: "🔄 ನಿಮ್ಮ ಧ್ವನಿಯನ್ನು ಪ್ರಕ್ರಿಯೆಗೊಳಿಸಲಾಗುತ್ತಿದೆ..."
+                    };
+                    
+                    showTyping();
+                }
+            }
+        }
+
+        async function processVoiceInput(audioBlob) {
+            try {
+                console.log('Processing audio blob...');
+                
+                const formData = new FormData();
+                formData.append('audio', audioBlob, 'recording.wav');
+                
+                console.log('Sending to server...');
+                
+                const response = await fetch('http://localhost:5000/predict-voice', {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'cors'
+                });
+                
+                console.log('Response received:', response.status);
+                
+                hideTyping();
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Failed to process voice input');
+                }
+                
+                const data = await response.json();
+                console.log('Voice data:', data);
+                
+                // Display what was recognized
+                addUserMessage(data.recognized_text);
+                currentLanguage = data.detected_language || 'en';
+                
+                // Show confidence if available
+                if (data.confidence) {
+                    const confidenceMsg = `✓ Recognized with ${(data.confidence * 100).toFixed(1)}% confidence`;
+                    addBotMessage(confidenceMsg);
+                }
+                
+                // Display diagnosis result
+                if (data.diagnosis) {
+                    displayDiagnosisResult(data);
+                } else {
+                    const noMatchMessages = {
+                        en: "I couldn't identify the disease. Could you provide more details? Or try speaking more clearly.",
+                        hi: "मैं बीमारी की पहचान नहीं कर सका। क्या आप अधिक विवरण दे सकते हैं? या अधिक स्पष्ट रूप से बोलने का प्रयास करें।",
+                        kn: "ನಾನು ರೋಗವನ್ನು ಗುರುತಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ। ದಯವಿಟ್ಟು ಹೆಚ್ಚಿನ ವಿವರಗಳನ್ನು ಒದಗಿಸಬಹುದೇ?"
+                    };
+                    addBotMessage(noMatchMessages[currentLanguage] || noMatchMessages.en);
+                }
+                
+            } catch (error) {
+                hideTyping();
+                console.error('Voice processing error:', error);
+                
+                const errorMessages = {
+                    en: `❌ Error: ${error.message}. Please try speaking again or type your message!`,
+                    hi: '❌ क्षमा करें, मैं आपकी आवाज़ नहीं समझ सका। कृपया पुनः प्रयास करें!',
+                    kn: '❌ ಕ್ಷಮಿಸಿ, ನಾನು ನಿಮ್ಮ ಧ್ವನಿಯನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ!'
+                };
+                
+                addBotMessage(errorMessages[currentLanguage] || errorMessages.en);
+            }
+        }
+
+        window.onload = function() {
+            initChat();
+            
+            // Check microphone permission
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                console.log('Voice input is supported');
+            } else {
+                console.warn('Voice input may not be supported in this browser');
+            }
+        };
+    </script>
+</body>
+</html>
