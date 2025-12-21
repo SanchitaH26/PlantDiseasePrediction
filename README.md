@@ -248,23 +248,23 @@ The Admin Dashboard provides complete control over disease data used by the syst
 
 ## **Disease management by Admin**
 
-<img width="1874" height="803" alt="image" src="https://github.com/user-attachments/assets/6a779eae-608c-4659-8ace-26961634f1d2" />
+<img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/6a779eae-608c-4659-8ace-26961634f1d2" />
 
 ## **Image-Based Detection**
 
-<img width="751" height="657" alt="image" src="https://github.com/user-attachments/assets/35ca1c5e-1856-4a7d-a656-ebe16f729ab1" />
+<img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/35ca1c5e-1856-4a7d-a656-ebe16f729ab1" />
 
 ## **Text-Based Diagnosis**
 
-<img width="702" height="561" alt="image" src="https://github.com/user-attachments/assets/481ed867-d069-4a19-b3c1-a3f49e5dee5d" />
+<img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/481ed867-d069-4a19-b3c1-a3f49e5dee5d" />
 
 ## **Multilingual text based analysis**
 
-<img width="777" height="582" alt="image" src="https://github.com/user-attachments/assets/deee30ff-6dbd-4e60-beb4-62cdd310e950" />
+<img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/deee30ff-6dbd-4e60-beb4-62cdd310e950" />
 
 ## **Voice based (which is then converted into text) analysis**
 
-<img width="720" height="536" alt="image" src="https://github.com/user-attachments/assets/906f1669-7c7e-4703-bf03-4d20aa3e29a6" />
+<img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/906f1669-7c7e-4703-bf03-4d20aa3e29a6" />
 
 # Future Enhancements
 
