@@ -390,29 +390,29 @@
 
         const greetings = {
             en: {
-                greeting: "Hello! 👋 I'm your Plant Doctor AI. I can help diagnose plant diseases in 13 languages!",
+                greeting: "Hello! I'm your Plant Doctor AI. I can help diagnose plant diseases in 13 languages!",
                 options: "How would you like me to help you today?",
-                buttons: ["Upload plant image 📷", "Describe symptoms 💬", "Ask a question ❓"]
+                buttons: ["Upload plant image ", "Describe symptoms ", "Ask a question "]
             },
             hi: {
-                greeting: "नमस्ते! 👋 मैं आपका प्लांट डॉक्टर AI हूं। मैं 13 भाषाओं में पौधों की बीमारियों का निदान कर सकता हूं!",
+                greeting: "नमस्ते!  मैं आपका प्लांट डॉक्टर AI हूं। मैं 13 भाषाओं में पौधों की बीमारियों का निदान कर सकता हूं!",
                 options: "मैं आपकी कैसे मदद कर सकता हूं?",
-                buttons: ["पौधे की तस्वीर अपलोड करें 📷", "लक्षण बताएं 💬", "सवाल पूछें ❓"]
+                buttons: ["पौधे की तस्वीर अपलोड करें ", "लक्षण बताएं ", "सवाल पूछें "]
             },
             kn: {
-                greeting: "ನಮಸ್ಕಾರ! 👋 ನಾನು ನಿಮ್ಮ ಪ್ಲಾಂಟ್ ಡಾಕ್ಟರ್ AI. ನಾನು 13 ಭಾಷೆಗಳಲ್ಲಿ ಸಸ್ಯ ರೋಗಗಳನ್ನು ಪತ್ತೆ ಮಾಡಬಲ್ಲೆ!",
+                greeting: "ನಮಸ್ಕಾರ!  ನಾನು ನಿಮ್ಮ ಪ್ಲಾಂಟ್ ಡಾಕ್ಟರ್ AI. ನಾನು 13 ಭಾಷೆಗಳಲ್ಲಿ ಸಸ್ಯ ರೋಗಗಳನ್ನು ಪತ್ತೆ ಮಾಡಬಲ್ಲೆ!",
                 options: "ನಾನು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಲಿ?",
-                buttons: ["ಸಸಿಯ ಚಿತ್ರ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ 📷", "ರೋಗಲಕ್ಷಣಗಳನ್ನು ವಿವರಿಸಿ 💬", "ಪ್ರಶ್ನೆ ಕೇಳಿ ❓"]
+                buttons: ["ಸಸಿಯ ಚಿತ್ರ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ ", "ರೋಗಲಕ್ಷಣಗಳನ್ನು ವಿವರಿಸಿ ", "ಪ್ರಶ್ನೆ ಕೇಳಿ "]
             },
             te: {
-                greeting: "నమస్కారం! 👋 నేను మీ ప్లాంట్ డాక్టర్ AI. నేను 13 భాషలలో మొక్కల వ్యాధులను నిర్ధారణ చేయగలను!",
+                greeting: "నమస్కారం!  నేను మీ ప్లాంట్ డాక్టర్ AI. నేను 13 భాషలలో మొక్కల వ్యాధులను నిర్ధారణ చేయగలను!",
                 options: "నేను మీకు ఎలా సహాయం చేయగలను?",
-                buttons: ["మొక్క చిత్రాన్ని అప్‌లోడ్ చేయండి 📷", "లక్షణాలను వివరించండి 💬", "ప్రశ్న అడగండి ❓"]
+                buttons: ["మొక్క చిత్రాన్ని అప్‌లోడ్ చేయండి ", "లక్షణాలను వివరించండి ", "ప్రశ్న అడగండి "]
             },
             ta: {
-                greeting: "வணக்கம்! 👋 நான் உங்கள் Plant Doctor AI. நான் 13 மொழிகளில் தாவர நோய்களை கண்டறிய முடியும்!",
+                greeting: "வணக்கம்!  நான் உங்கள் Plant Doctor AI. நான் 13 மொழிகளில் தாவர நோய்களை கண்டறிய முடியும்!",
                 options: "நான் உங்களுக்கு எப்படி உதவ முடியும்?",
-                buttons: ["செடியின் படத்தை பதிவேற்றவும் 📷", "அறிகுறிகளை விவரிக்கவும் 💬", "கேள்வி கேளுங்கள் ❓"]
+                buttons: ["செடியின் படத்தை பதிவேற்றவும் ", "அறிகுறிகளை விவரிக்கவும் ", "கேள்வி கேளுங்கள் "]
             }
         };
 
@@ -523,9 +523,9 @@
                 
                 if (action.includes('📷') || action.includes('Upload') || action.includes('अपलोड') || action.includes('ಅಪ್‌ಲೋಡ್')) {
                     const responses = {
-                        en: "Perfect! Please upload a clear image of your plant showing the affected areas. I'll analyze it for you! 📸",
-                        hi: "बढ़िया! कृपया अपने पौधे की एक स्पष्ट तस्वीर अपलोड करें जिसमें प्रभावित क्षेत्र दिख रहे हों। मैं इसका विश्लेषण करूंगा! 📸",
-                        kn: "ಅದ್ಭುತ! ದಯವಿಟ್ಟು ಪೀಡಿತ ಪ್ರದೇಶಗಳನ್ನು ತೋರಿಸುವ ನಿಮ್ಮ ಸಸಿಯ ಸ್ಪಷ್ಟ ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ! 📸"
+                        en: "Perfect! Please upload a clear image of your plant showing the affected areas. I'll analyze it for you! ",
+                        hi: "बढ़िया! कृपया अपने पौधे की एक स्पष्ट तस्वीर अपलोड करें जिसमें प्रभावित क्षेत्र दिख रहे हों। मैं इसका विश्लेषण करूंगा! ",
+                        kn: "ಅದ್ಭುತ! ದಯವಿಟ್ಟು ಪೀಡಿತ ಪ್ರದೇಶಗಳನ್ನು ತೋರಿಸುವ ನಿಮ್ಮ ಸಸಿಯ ಸ್ಪಷ್ಟ ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ! "
                     };
                     addBotMessage(responses[currentLanguage] || responses.en);
                     awaitingImageAnalysis = true;
@@ -604,7 +604,7 @@
                 displayDiagnosisResult(data);
             } catch (error) {
                 hideTyping();
-                addBotMessage('Sorry, I encountered an error analyzing your symptoms. Please try again! 😔');
+                addBotMessage('Sorry, I encountered an error analyzing your symptoms. Please try again! ');
             }
         }
 
@@ -622,7 +622,7 @@
             const isHealthy = data.diagnosis.is_healthy;
             const resultHTML = `
                 <div class="result-card">
-                    <h4>${isHealthy ? '✅ Good News!' : '⚠️ Disease Detected'}</h4>
+                    <h4>${isHealthy ? 'Good News!' : 'Disease Detected'}</h4>
                     <p><strong>${data.diagnosis.disease}</strong></p>
                     <span class="confidence-badge ${isHealthy ? 'healthy-badge' : 'diseased-badge'}">
                         ${data.diagnosis.plant ? data.diagnosis.plant.toUpperCase() : 'PLANT'}
@@ -643,9 +643,9 @@
             addBotMessage(resultHTML);
             
             const followUp = {
-                en: "Would you like to:\n• Upload an image for confirmation 📷\n• Ask about prevention 🛡️\n• Get more details 📋",
-                hi: "क्या आप चाहेंगे:\n• पुष्टि के लिए एक तस्वीर अपलोड करें 📷\n• रोकथाम के बारे में पूछें 🛡️\n• अधिक जानकारी प्राप्त करें 📋",
-                kn: "ನೀವು ಬಯಸುತ್ತೀರಾ:\n• ದೃಢೀಕರಣಕ್ಕಾಗಿ ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ 📷\n• ತಡೆಗಟ್ಟುವಿಕೆ ಬಗ್ಗೆ ಕೇಳಿ 🛡️"
+                en: "Would you like to:\n• Upload an image for confirmation \n• Ask about prevention \n• Get more details ",
+                hi: "क्या आप चाहेंगे:\n• पुष्टि के लिए एक तस्वीर अपलोड करें \n• रोकथाम के बारे में पूछें \n• अधिक जानकारी प्राप्त करें ",
+                kn: "ನೀವು ಬಯಸುತ್ತೀರಾ:\n• ದೃಢೀಕರಣಕ್ಕಾಗಿ ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ \n• ತಡೆಗಟ್ಟುವಿಕೆ ಬಗ್ಗೆ ಕೇಳಿ "
             };
             
             setTimeout(() => {
@@ -658,12 +658,12 @@
             if (!file) return;
             
             if (!file.type.startsWith('image/')) {
-                addBotMessage('Please upload a valid image file (JPG, PNG) 🖼️');
+                addBotMessage('Please upload a valid image file (JPG, PNG) ');
                 return;
             }
             
             if (file.size > 5 * 1024 * 1024) {
-                addBotMessage('Image size should be less than 5MB. Please upload a smaller image! 📏');
+                addBotMessage('Image size should be less than 5MB. Please upload a smaller image! ');
                 return;
             }
             
@@ -677,9 +677,9 @@
             reader.readAsDataURL(file);
             
             const uploadMessages = {
-                en: "Great! I can see your plant image. Click send or describe any additional symptoms you're noticing! 📸",
-                hi: "बढ़िया! मैं आपके पौधे की तस्वीर देख सकता हूं। भेजें पर क्लिक करें या कोई अतिरिक्त लक्षण बताएं! 📸",
-                kn: "ಅದ್ಭುತ! ನಾನು ನಿಮ್ಮ ಸಸಿಯ ಚಿತ್ರವನ್ನು ನೋಡಬಲ್ಲೆ। ಕಳುಹಿಸು ಕ್ಲಿಕ್ ಮಾಡಿ! 📸"
+                en: "Great! I can see your plant image. Click send or describe any additional symptoms you're noticing! ",
+                hi: "बढ़िया! मैं आपके पौधे की तस्वीर देख सकता हूं। भेजें पर क्लिक करें या कोई अतिरिक्त लक्षण बताएं! ",
+                kn: "ಅದ್ಭುತ! ನಾನು ನಿಮ್ಮ ಸಸಿಯ ಚಿತ್ರವನ್ನು ನೋಡಬಲ್ಲೆ। ಕಳುಹಿಸು ಕ್ಲಿಕ್ ಮಾಡಿ! "
             };
             
             showTyping();
@@ -697,9 +697,9 @@
             awaitingImageAnalysis = false;
             
             const removeMessages = {
-                en: "Image removed. You can upload a new one or describe symptoms! 🔄",
-                hi: "तस्वीर हटा दी गई। आप एक नई अपलोड कर सकते हैं या लक्षण बता सकते हैं! 🔄",
-                kn: "ಚಿತ್ರ ತೆಗೆದುಹಾಕಲಾಗಿದೆ। ನೀವು ಹೊಸದನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಬಹುದು! 🔄"
+                en: "Image removed. You can upload a new one or describe symptoms! ",
+                hi: "तस्वीर हटा दी गई। आप एक नई अपलोड कर सकते हैं या लक्षण बता सकते हैं! ",
+                kn: "ಚಿತ್ರ ತೆಗೆದುಹಾಕಲಾಗಿದೆ। ನೀವು ಹೊಸದನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಬಹುದು! "
             };
             
             addBotMessage(removeMessages[currentLanguage] || removeMessages.en);
@@ -735,7 +735,7 @@
                 
             } catch (error) {
                 hideTyping();
-                addBotMessage('Sorry, I encountered an error analyzing the image. Please try again! 😔');
+                addBotMessage('Sorry, I encountered an error analyzing the image. Please try again! ');
             }
         }
 
@@ -744,7 +744,7 @@
             
             const resultHTML = `
                 <div class="result-card">
-                    <h4>${isHealthy ? '✅ Great News!' : '⚠️ Disease Detected'}</h4>
+                    <h4>${isHealthy ? 'Great News!' : 'Disease Detected'}</h4>
                     <p><strong>${data.disease}</strong></p>
                     <span class="confidence-badge ${isHealthy ? 'healthy-badge' : 'diseased-badge'}">
                         Confidence: ${data.confidence.toFixed(1)}%
@@ -771,7 +771,7 @@
                 ` : `
                 <div class="result-card">
                     <h4>Next Steps</h4>
-                    <p>For detailed treatment advice, please describe the symptoms you're seeing, and I'll provide specific recommendations! 💊</p>
+                    <p>For detailed treatment advice, please describe the symptoms you're seeing, and I'll provide specific recommendations!</p>
                 </div>
                 `}
             `;
@@ -779,9 +779,9 @@
             addBotMessage(resultHTML);
             
             const followUp = {
-                en: "Would you like me to:\n• Provide detailed treatment 💊\n• Explain the disease 📚\n• Analyze another plant 🌿",
-                hi: "क्या आप चाहते हैं कि मैं:\n• विस्तृत उपचार प्रदान करूं 💊\n• बीमारी को समझाऊं 📚\n• दूसरे पौधे का विश्लेषण करूं 🌿",
-                kn: "ನಾನು ಏನು ಮಾಡಬೇಕು:\n• ವಿವರವಾದ ಚಿಕಿತ್ಸೆ ನೀಡಿ 💊\n• ರೋಗವನ್ನು ವಿವರಿಸಿ 📚\n• ಇನ್ನೊಂದು ಸಸಿಯನ್ನು ವಿಶ್ಲೇಷಿಸಿ 🌿"
+                en: "Would you like me to:\n• Provide detailed treatment \n• Explain the disease \n• Analyze another plant ",
+                hi: "क्या आप चाहते हैं कि मैं:\n• विस्तृत उपचार प्रदान करूं \n• बीमारी को समझाऊं \n• दूसरे पौधे का विश्लेषण करूं ",
+                kn: "ನಾನು ಏನು ಮಾಡಬೇಕು:\n• ವಿವರವಾದ ಚಿಕಿತ್ಸೆ ನೀಡಿ \n• ರೋಗವನ್ನು ವಿವರಿಸಿ \n• ಇನ್ನೊಂದು ಸಸಿಯನ್ನು ವಿಶ್ಲೇಷಿಸಿ "
             };
             
             setTimeout(() => {
@@ -800,7 +800,7 @@
             const voiceBtn = document.getElementById('voiceBtn');
             
             if (!isRecording) {
-                // Start recording
+                
                 try {
                     const stream = await navigator.mediaDevices.getUserMedia({ 
                         audio: {
@@ -809,7 +809,7 @@
                         }
                     });
                     
-                    // Use audio/wav for better compatibility
+                    
                     const options = { mimeType: 'audio/webm' };
                     mediaRecorder = new MediaRecorder(stream, options);
                     audioChunks = [];
@@ -825,7 +825,7 @@
                         console.log('Audio blob size:', audioBlob.size);
                         await processVoiceInput(audioBlob);
                         
-                        // Stop all tracks
+                        
                         stream.getTracks().forEach(track => track.stop());
                     };
                     
@@ -835,19 +835,19 @@
                     voiceBtn.textContent = '⏹️';
                     
                     const recordingMessages = {
-                        en: "🎤 Recording... Speak now!",
-                        hi: "🎤 रिकॉर्डिंग... अब बोलें!",
-                        kn: "🎤 ರೆಕಾರ್ಡಿಂಗ್... ಈಗ ಮಾತನಾಡಿ!"
+                        en: "Recording... Speak now!",
+                        hi: "रिकॉर्डिंग... अब बोलें!",
+                        kn: "ರೆಕಾರ್ಡಿಂಗ್... ಈಗ ಮಾತನಾಡಿ!"
                     };
                     
                     addBotMessage(recordingMessages[currentLanguage] || recordingMessages.en);
                     
                 } catch (error) {
                     console.error('Error accessing microphone:', error);
-                    addBotMessage('❌ Could not access microphone. Please check permissions!');
+                    addBotMessage('Could not access microphone. Please check permissions!');
                 }
             } else {
-                // Stop recording
+                
                 if (mediaRecorder && mediaRecorder.state === 'recording') {
                     mediaRecorder.stop();
                     isRecording = false;
@@ -855,9 +855,9 @@
                     voiceBtn.textContent = '🎤';
                     
                     const processingMessages = {
-                        en: "🔄 Processing your voice...",
-                        hi: "🔄 आपकी आवाज़ संसाधित की जा रही है...",
-                        kn: "🔄 ನಿಮ್ಮ ಧ್ವನಿಯನ್ನು ಪ್ರಕ್ರಿಯೆಗೊಳಿಸಲಾಗುತ್ತಿದೆ..."
+                        en: " Processing your voice...",
+                        hi: " आपकी आवाज़ संसाधित की जा रही है...",
+                        kn: " ನಿಮ್ಮ ಧ್ವನಿಯನ್ನು ಪ್ರಕ್ರಿಯೆಗೊಳಿಸಲಾಗುತ್ತಿದೆ..."
                     };
                     
                     showTyping();
@@ -892,17 +892,17 @@
                 const data = await response.json();
                 console.log('Voice data:', data);
                 
-                // Display what was recognized
+               
                 addUserMessage(data.recognized_text);
                 currentLanguage = data.detected_language || 'en';
                 
-                // Show confidence if available
+                
                 if (data.confidence) {
                     const confidenceMsg = `✓ Recognized with ${(data.confidence * 100).toFixed(1)}% confidence`;
                     addBotMessage(confidenceMsg);
                 }
                 
-                // Display diagnosis result
+                
                 if (data.diagnosis) {
                     displayDiagnosisResult(data);
                 } else {
@@ -919,9 +919,9 @@
                 console.error('Voice processing error:', error);
                 
                 const errorMessages = {
-                    en: `❌ Error: ${error.message}. Please try speaking again or type your message!`,
-                    hi: '❌ क्षमा करें, मैं आपकी आवाज़ नहीं समझ सका। कृपया पुनः प्रयास करें!',
-                    kn: '❌ ಕ್ಷಮಿಸಿ, ನಾನು ನಿಮ್ಮ ಧ್ವನಿಯನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ!'
+                    en: ` Error: ${error.message}. Please try speaking again or type your message!`,
+                    hi: ' क्षमा करें, मैं आपकी आवाज़ नहीं समझ सका। कृपया पुनः प्रयास करें!',
+                    kn: ' ಕ್ಷಮಿಸಿ, ನಾನು ನಿಮ್ಮ ಧ್ವನಿಯನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ!'
                 };
                 
                 addBotMessage(errorMessages[currentLanguage] || errorMessages.en);
@@ -931,7 +931,7 @@
         window.onload = function() {
             initChat();
             
-            // Check microphone permission
+            
             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 console.log('Voice input is supported');
             } else {

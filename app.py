@@ -55,7 +55,6 @@ def preprocess_image(image):
     img_array = np.expand_dims(img_array, axis=0)
     return img_array
 
-# Initialize diseases collection with Plant Village dataset
 def initialize_diseases():
     if diseases_collection.count_documents({}) == 0:
         print("Initializing diseases database...")
@@ -80,7 +79,6 @@ def initialize_diseases():
             diseases_collection.insert_one(disease_doc)
         print(f"Initialized {len(CLASS_NAMES)} diseases in database")
 
-# Call initialization on startup
 initialize_diseases()
 
 @app.route("/login.html")
@@ -105,7 +103,6 @@ def serve_admin():
 def root():
     return send_from_directory(".", "login.html")
 
-# ------------------ Auth APIs ------------------
 @app.route("/register", methods=["POST"])
 def register():
     data = request.json
@@ -156,7 +153,6 @@ def check_auth():
         return jsonify({"authenticated": True, "role": session.get("role")})
     return jsonify({"authenticated": False}), 401
 
-# ------------------ Admin Disease Management APIs ------------------
 @app.route("/admin/diseases", methods=["GET"])
 def get_all_diseases():
     if "user" not in session or session.get("role") != "admin":
@@ -183,7 +179,6 @@ def add_disease():
     
     data = request.json
     
-    # Check if disease already exists
     if diseases_collection.find_one({"class_name": data.get("class_name")}):
         return jsonify({"error": "Disease already exists"}), 400
     
@@ -258,7 +253,7 @@ def get_admin_stats():
     healthy_count = diseases_collection.count_documents({"is_healthy": True})
     diseased_count = diseases_collection.count_documents({"is_healthy": False})
     
-    # Get plant-wise distribution
+    
     pipeline = [
         {"$group": {"_id": "$plant", "count": {"$sum": 1}}},
         {"$sort": {"count": -1}}
@@ -272,7 +267,6 @@ def get_admin_stats():
         "plant_distribution": plant_distribution
     })
 
-# ------------------ Farmer APIs (existing) ------------------
 @app.route('/predict-image', methods=['POST'])
 def predict_image():
     try:

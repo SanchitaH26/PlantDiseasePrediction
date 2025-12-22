@@ -283,12 +283,12 @@
 <body>
     <div class="dashboard-container">
         <div class="sidebar">
-            <h2>🌱 AgriBot Admin</h2>
+            <h2>AgriBot Admin</h2>
             <ul class="sidebar-menu">
-                <li><a href="#dashboard" class="active" onclick="showSection('dashboard')">📊 Dashboard</a></li>
-                <li><a href="#diseases" onclick="showSection('diseases')">🦠 Disease Management</a></li>
+                <li><a href="#dashboard" class="active" onclick="showSection('dashboard')">Dashboard</a></li>
+                <li><a href="#diseases" onclick="showSection('diseases')">Disease Management</a></li>
             </ul>
-            <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+            <button class="logout-btn" onclick="logout()">Logout</button>
         </div>
 
         <div class="main-content">
@@ -318,7 +318,7 @@
             <div id="diseases-section" class="section" style="display: none;">
                 <div class="header">
                     <h1>Disease Management</h1>
-                    <button class="btn btn-primary" onclick="openAddModal()">➕ Add Disease</button>
+                    <button class="btn btn-primary" onclick="openAddModal()">Add Disease</button>
                 </div>
 
                 <div class="content-card">
@@ -400,7 +400,7 @@
         let allDiseases = [];
         let editingDisease = null;
 
-        // Check auth on load
+        
         (async () => {
             const res = await fetch("/check-auth", { credentials: "same-origin" });
             if (!res.ok) {
@@ -503,10 +503,10 @@
                         <td>
                             <div class="action-btns">
                                 <button class="btn btn-edit" onclick='editDisease(${JSON.stringify(disease).replace(/'/g, "&apos;")})'>
-                                    ✏️ Edit
+                                    Edit
                                 </button>
                                 <button class="btn btn-danger" onclick='deleteDisease("${disease.class_name}")'>
-                                    🗑️ Delete
+                                    Delete
                                 </button>
                             </div>
                         </td>
@@ -650,7 +650,7 @@
             window.location.href = '/login.html';
         }
 
-        // Close modal when clicking outside
+        
         document.getElementById('diseaseModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
